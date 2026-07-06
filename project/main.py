@@ -1,6 +1,6 @@
 import os
 
-from config import DATASET_CSV
+from config import DATASET_CSV, DATASET_PATH
 
 from data_loader import (
     load_dataset,
@@ -19,6 +19,16 @@ from duplicate_detection import (
 )
 
 from eda import print_eda_summary
+
+from image_size_analysis import (
+    build_image_size_dataframe,
+    summarize_image_sizes,
+    check_unique_sizes,
+    plot_image_size_scatter,
+    plot_image_size_by_class,
+    plot_total_pixels_by_class,
+    plot_aspect_ratio_by_class
+)
 
 from visualization import (
     show_sample_images,
@@ -65,6 +75,39 @@ def main():
 
         print("dataset.csv created successfully.")
 
+
+
+
+    # --------------------------------
+    # Image Size Analysis
+    # --------------------------------
+
+    df_sizes = build_image_size_dataframe(DATASET_PATH)
+
+    print("\nImage Size Summary:")
+    print(summarize_image_sizes(df_sizes))
+
+    print("\nUnique Image Sizes:")
+    print(check_unique_sizes(df_sizes))
+
+    df_sizes.to_csv(
+        "image_size_analysis.csv",
+        index=False
+    )
+
+    plot_image_size_by_class(df_sizes)
+
+    plot_image_size_scatter(df_sizes)
+
+    plot_total_pixels_by_class(df_sizes)
+
+    plot_aspect_ratio_by_class(df_sizes)
+
+
+
+    # --------------------------------
+    # Duplicate Images
+    # --------------------------------
     duplicate_count = count_duplicate_images(df)
 
     print("Number of duplicate images:")

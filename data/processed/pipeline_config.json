@@ -1,0 +1,25 @@
+{
+    "project_dir": "C:\\Users\\Startklar\\Downloads\\ML\\Sudhanshu",
+    "dataset_dir": "C:\\Users\\Startklar\\Downloads\\ML\\Sudhanshu\\data\\raw\\PBC_dataset_normal_DIB",
+    "image_size": [
+        224,
+        224
+    ],
+    "random_state": 42,
+    "total_images_found": 17093,
+    "unreadable_images": 1,
+    "clean_images_used": 17075,
+    "train_images": 11952,
+    "validation_images": 2561,
+    "test_images": 2562,
+    "classes": {
+        "basophil": 0,
+        "eosinophil": 1,
+        "erythroblast": 2,
+        "immature_granulocytes": 3,
+        "lymphocyte": 4,
+        "monocyte": 5,
+        "neutrophil": 6,
+        "platelet": 7
+    }
+}

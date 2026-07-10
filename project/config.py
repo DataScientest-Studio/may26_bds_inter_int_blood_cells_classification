@@ -1,7 +1,7 @@
 import os
 
 # Dataset
-DATASET_PATH = "../../PBC_dataset_normal_DIB"
+DATASET_PATH = "../../../PBC_dataset_normal_DIB"
 
 # CSV
 DATASET_CSV = "dataset.csv"

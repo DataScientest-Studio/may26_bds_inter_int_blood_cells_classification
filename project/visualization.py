@@ -304,3 +304,99 @@ def plot_duplicate_heatmap(heat):
     )
 
     plt.show()
+    
+    
+# =====================================================
+# Visualization PCA
+# =====================================================
+
+def vis_pca(df, pca):
+
+    plt.figure(figsize=(12,8))
+
+    for c in sorted(df["label"].unique()):
+        d = df[df["label"] == c]
+
+        plt.scatter(
+            d["PC1"],
+            d["PC2"],
+            s=8,
+            alpha=0.45,
+            label=c
+        )
+
+    plt.xlabel(
+        f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% variance)"
+    )
+
+    plt.ylabel(
+        f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}% variance)"
+    )
+
+    plt.title("PCA Projection of RGB Mean Features")
+
+    plt.legend(
+        bbox_to_anchor=(1.02,1),
+        loc="upper left"
+    )
+
+    plt.tight_layout()
+    plt.show()
+    
+    
+# =====================================================
+# Blur
+# =====================================================
+
+def plot_blur_score_distribution(blur_scores):
+    """
+    Plot the distribution of blur scores.
+
+    Parameters
+    ----------
+    blur_scores : pandas.Series
+        Blur scores returned by calculate_blur_score().
+    """
+
+    plt.figure(figsize=(8, 5))
+
+    plt.hist(
+        blur_scores.dropna(),
+        bins=40,
+        edgecolor="black"
+    )
+
+    plt.title("Distribution of Blur Scores")
+    plt.xlabel("Blur Score (Variance of Laplacian)")
+    plt.ylabel("Number of Images")
+
+    plt.grid(alpha=0.3)
+
+    plt.tight_layout()
+    plt.show()
+    
+    
+def plot_blur_score_boxplot(blur_scores):
+    """
+    Plot a boxplot of the blur scores.
+
+    Parameters
+    ----------
+    blur_scores : pandas.Series
+        Blur scores returned by calculate_blur_score().
+    """
+
+    plt.figure(figsize=(4, 6))
+
+    plt.boxplot(
+        blur_scores.dropna(),
+        patch_artist=True
+    )
+
+    plt.title("Boxplot of Blur Scores")
+    plt.ylabel("Blur Score (Variance of Laplacian)")
+
+    plt.grid(axis="y", alpha=0.3)
+
+    plt.tight_layout()
+    plt.show()

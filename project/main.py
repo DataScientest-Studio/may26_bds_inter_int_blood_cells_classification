@@ -18,7 +18,7 @@ from duplicate_detection import (
     duplicate_heatmap_data
 )
 
-from eda import print_eda_summary
+from eda import print_eda_summary, pca, calculate_blur_score
 
 from image_size_analysis import (
     build_image_size_dataframe,
@@ -40,7 +40,10 @@ from visualization import (
     plot_rgb_boxplot,
     plot_rgb_violin,
     plot_gray_distribution,
-    plot_duplicate_heatmap
+    plot_duplicate_heatmap,
+    vis_pca,
+    plot_blur_score_distribution,
+    plot_blur_score_boxplot
 )
 
 
@@ -74,10 +77,7 @@ def main():
         save_dataframe(df)
 
         print("dataset.csv created successfully.")
-
-
-
-
+  
     # --------------------------------
     # Image Size Analysis
     # --------------------------------
@@ -117,7 +117,7 @@ def main():
     grouped_duplicates = group_duplicates(duplicates)
     heat = duplicate_heatmap_data(duplicates)
 
-    print_eda_summary(df)
+    #print_eda_summary(df)
 
     print("\nGrouped duplicate images:")
     print(grouped_duplicates)
@@ -141,7 +141,16 @@ def main():
     plot_gray_distribution(df)
 
     plot_duplicate_heatmap(heat)
+    
+    vis_pca(*pca(df))
 
-
+    print(df[["R_mean", "G_mean", "B_mean"]].describe())
+  
+    
+    blur_scores = calculate_blur_score(df)
+    plot_blur_score_distribution(blur_scores) # need 5 min to exec
+    plot_blur_score_boxplot(blur_scores)
+    print_eda_summary(df, blur_scores)
+    
 if __name__ == "__main__":
     main()
